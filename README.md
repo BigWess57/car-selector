@@ -4,7 +4,7 @@ Une application Fullstack permettant de sélectionner une marque et un modèle d
 
 Ce projet a été réalisé dans le cadre d'un test technique.
 
-## 🛠️ Stack Technique
+## Stack Technique
 
 - **Framework :** Next.js 16 (App Router)
 - **Backend :** Hono (intégré via API Routes)
@@ -14,12 +14,12 @@ Ce projet a été réalisé dans le cadre d'un test technique.
 - **Langage :** TypeScript
 
 
-## 🚀 Pré-requis
+## Pré-requis
 
 - Node.js (v18+)
 - Docker & Docker Compose
 
-## ⚙️ Installation & Setup
+## Installation & Setup
 
 ### 1. Cloner et installer les dépendances
 
@@ -57,8 +57,13 @@ npx drizzle-kit push
 # Remplissage des données (Seed)
 npx tsx src/db/seed.ts
 ```
+Pour visualiser la bd sur navigateur, lancer : 
+```bash
+npx drizzle-kit studio
+```
+puis ouvrir https://local.drizzle.studio
 
-## ▶️ Lancer le projet
+## Lancer le projet
 
 Lancez le serveur de développement :
 
