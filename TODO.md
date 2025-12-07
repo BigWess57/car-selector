@@ -8,6 +8,7 @@
 ## Frontend & UX
 - Implémenter React Query (@tanstack/react-query) pour le caching et la déduplication des requêtes (pour le changement de marques notamment)
 - Ajouter des tests E2E avec Playwright.
+- Améliorer le Design/les couleurs
 
 ## Sécurité
 - Ajouter un Rate Limiting par utilisateur sur l'API (avec Vercel par exemple)

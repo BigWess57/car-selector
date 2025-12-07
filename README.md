@@ -57,11 +57,11 @@ npx drizzle-kit push
 # Remplissage des données (Seed)
 npx tsx src/db/seed.ts
 ```
-Pour visualiser la bd sur navigateur, lancer : 
+Pour visualiser la bd sur navigateur, lancez dans un nouveau terminal : 
 ```bash
 npx drizzle-kit studio
 ```
-puis ouvrir https://local.drizzle.studio
+puis ouvrez https://local.drizzle.studio
 
 ## Lancer le projet
 
