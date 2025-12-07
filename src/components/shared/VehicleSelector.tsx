@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { 
   Card, 
   CardContent, 
@@ -33,6 +33,15 @@ const VehicleSelector = () => {
   const [loadingBrands, setLoadingBrands] = useState(true);
   const [loadingModels, setLoadingModels] = useState(false);
   const [saving, setSaving] = useState(false);
+
+  const saveTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  // Nettoyer le timer si le composant est détruit
+  useEffect(() => {
+    return () => {
+      if (saveTimeoutRef.current) clearTimeout(saveTimeoutRef.current);
+    };
+  }, []);
 
   // --- Chargement initial ---
   useEffect(() => {
@@ -104,7 +113,9 @@ const VehicleSelector = () => {
     }
   };
 
-  const saveSelection = async (brandName: string, modelName: string) => {
+
+  // Fonction utilitaire pour envoyer la selection
+  const performSave = async (brandName: string, modelName: string) => {
     setSaving(true);
     try {
       const res = await fetch('/api/selections', {
@@ -129,6 +140,30 @@ const VehicleSelector = () => {
     } finally {
       setSaving(false);
     }
+  };
+
+  //Foncion de Debounce pour la selection
+  const saveSelection = async (brandName: string, modelName: string) => {
+    // Si tout premier clic (pas de timer en cours)
+    if (!saveTimeoutRef.current) {
+      performSave(brandName, modelName);
+
+      saveTimeoutRef.current = setTimeout(() => {
+        saveTimeoutRef.current = null; 
+      }, 500);
+      
+      return;
+    }
+
+    // Si un timer tourne déjà (l'utilisateur spamme ou change d'avis vite)
+    // On annule le timer précédent (qu'il soit fictif ou réel)
+    clearTimeout(saveTimeoutRef.current);
+
+    // On programme une nouvelle exécution à la fin du délai
+    saveTimeoutRef.current = setTimeout(() => {
+      performSave(brandName, modelName); // Sauvegarde la DERNIÈRE valeur
+      saveTimeoutRef.current = null;
+    }, 500);
   };
 
   const handleReset = () => {
